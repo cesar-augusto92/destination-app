@@ -36,7 +36,7 @@ class CepsController extends Controller
 
         $cep = Cep::all()->where('numero_cep', $numerocep);
         
-        if(empty($cep))
+        if(count($cep) == 0)
         {
             $cep = new Cep();
             $cep->numero_cep = $numerocep;
@@ -53,7 +53,7 @@ class CepsController extends Controller
                 $cep->save();
             }
         }
-        
+
         return redirect()->action('CepsController@list');
     }
 }

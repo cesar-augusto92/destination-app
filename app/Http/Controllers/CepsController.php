@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Cep;
 use Illuminate\Console\Scheduling\Event;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rules\Exists;
 
 class CepsController extends Controller
 {
@@ -46,11 +47,20 @@ class CepsController extends Controller
             
             if(!empty($dadosCep))
             {
-                $cep->endereco = $dadosCep->logradouro;
-                $cep->bairro = $dadosCep->bairro;
-                $cep->cidade = $dadosCep->localidade;
-                $cep->estado = $dadosCep->uf;
-                $cep->save();
+                if(isset($dadosCep->erro))
+                {
+                    if($dadosCep->erro == true)
+                    {
+                        return redirect()->action('CepsController@list');
+                    }
+                }else
+                {
+                    $cep->endereco = $dadosCep->logradouro;
+                    $cep->bairro = $dadosCep->bairro;
+                    $cep->cidade = $dadosCep->localidade;
+                    $cep->estado = $dadosCep->uf;
+                    $cep->save();
+                }
             }
         }
 

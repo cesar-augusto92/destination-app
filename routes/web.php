@@ -24,7 +24,7 @@ use Illuminate\Support\Facades\Route;
 //     return 'welcome';
 // });
 
-Route::get('/list', [CepsController::class, 'list']);
+Route::get('/', [CepsController::class, 'list']);
 
 Route::get('/consultar', [CepsController::class, 'formConsultar']);
 Route::post('/consultar', [CepsController::class, 'consultar']);
